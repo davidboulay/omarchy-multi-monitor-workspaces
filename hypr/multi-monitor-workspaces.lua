@@ -138,9 +138,17 @@ end
 
 -- ── Screens and their blocks ────────────────────────────────────────────────
 -- Plain tables, not the HL.Monitor objects: those are read-only.
+-- Outside Hyprland (omarchy-menu-keybindings scans the config with a stub `hl`
+-- whose every field is a callable table) get_monitors is not a function, and
+-- iterating the stub never ends. Treat that as "no monitors".
+local function monitors()
+  if type(hl.get_monitors) ~= "function" then return {} end
+  return hl.get_monitors() or {}
+end
+
 local function screens()
   local list, by_desc = {}, {}
-  for _, m in ipairs(hl.get_monitors() or {}) do
+  for _, m in ipairs(monitors()) do
     if not m.is_mirror and not IGNORED_OUTPUTS[m.name] then
       local d = m.description or ""
       table.insert(list, {
@@ -399,7 +407,7 @@ end
 -- ── Per-screen history (for "former workspace") ─────────────────────────────
 local current, previous = {}, {}
 local function track()
-  for _, m in ipairs(hl.get_monitors() or {}) do
+  for _, m in ipairs(monitors()) do
     local ws = hl.get_active_workspace(m.name)
     if ws and not ws.special and ws.id ~= current[m.name] then
       previous[m.name] = current[m.name]

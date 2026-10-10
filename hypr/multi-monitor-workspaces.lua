@@ -294,8 +294,13 @@ local function normalize()
     return ok
   end
 
+  -- Slots past `count` have no key, no bar button and (with count 9) no
+  -- overview tile, so a workspace parked there is lost from view. Only use
+  -- them when every visible slot is taken, so no window ever goes missing.
+  local count = load_settings().count
+
   local function first_free(block, digit)
-    if not taken[id_for(block, digit)] then return id_for(block, digit) end
+    if digit <= count and not taken[id_for(block, digit)] then return id_for(block, digit) end
     for d = 1, SPAN do
       if not taken[id_for(block, d)] then return id_for(block, d) end
     end
@@ -303,12 +308,18 @@ local function normalize()
 
   -- The wanted number, clearing it first if only an EMPTY workspace holds it
   -- (a returning screen is handed an empty workspace 1 by its default rule).
+  -- The empty one moves to the highest free VISIBLE slot: if it is the one
+  -- on screen, that is where you end up.
   local function claim(block, digit)
     local wanted = id_for(block, digit)
     if taken[wanted] and windows[wanted] == 0 then
       local spare
-      for d = SPAN, 1, -1 do
+      for d = count, 1, -1 do
         if not taken[id_for(block, d)] then spare = id_for(block, d) break end
+      end
+      for d = SPAN, count + 1, -1 do
+        if spare then break end
+        if not taken[id_for(block, d)] then spare = id_for(block, d) end
       end
       if spare then renumber(wanted, spare) end
     end

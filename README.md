@@ -26,7 +26,7 @@ omarchy bar set io.github.davidboulay.multi-monitor-workspaces count 5 --json
 
 | Setting | Default | What it does |
 |---|---|---|
-| `count` | 10 | Workspaces per screen, 1–10 (10 is the `0` key). Number keys past this are unbound, so they can't jump to another screen. |
+| `count` | 10 | Workspaces per screen, 1–10 (10 is the `0` key). Number keys past this are unbound, so they can't jump to another screen, and workspaces adopted from an unplugged screen are placed within it whenever a slot is free. |
 | `extraKeys` | true | The per-screen `TAB` / `CTRL+TAB` / `SHIFT+ALT+arrow` keys above. The number keys and `SUPER` + scroll are always per-screen. |
 
 A change applies within a couple of seconds, with no reload needed on your part.
@@ -102,6 +102,8 @@ A "changed" warning doesn't mean anything is broken, only that the plugin was te
 ## hyprtasking (optional)
 
 If you use the hyprtasking overview, builds before [raybbian/hyprtasking#138](https://github.com/raybbian/hyprtasking/pull/138) can place the second monitor's workspaces one tile off after the monitor layout changes, and every tile still *looks* right. The plugin warns when your build doesn't have the fix. Everything else works without hyprtasking.
+
+hyprtasking's default grid is 3×3, so it has no tile for workspace `0`. Set `count` to 9 to match it.
 
 ## Dependencies
 

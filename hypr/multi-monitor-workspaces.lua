@@ -488,15 +488,18 @@ function M.activate()
     end
   end
 
-  -- Next / previous slot on this screen, wrapping within 1..count. Empty
+  -- Next / previous slot on this screen, stopping at 1 and `count`. Empty
   -- slots count too: Hyprland deletes a workspace when its last window
   -- closes, so cycling only live ones would usually be a cycle of one.
+  -- No wrap-around: one stray SUPER + scroll tick on slot 1 used to land on
+  -- the empty slot 0 at the far end, which reads as being teleported.
   local function step(delta)
     return function()
       local block = focused_block(block_map())
       local ws = hl.get_active_workspace()
       local digit = (ws and not ws.special and block_of_id(ws.id) == block) and digit_of_id(ws.id) or 1
-      digit = (digit - 1 + delta) % count + 1
+      digit = digit + delta
+      if digit < 1 or digit > count then return end
       hl.dispatch(hl.dsp.focus({ workspace = tostring(id_for(block, digit)) }))
     end
   end

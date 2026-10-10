@@ -230,7 +230,9 @@ BarWidget {
   function stepWorkspace(delta) {
     var active = root.monitor && root.monitor.activeWorkspace ? root.monitor.activeWorkspace.id : root.base + 1
     var digit = root.isOwn(active) ? active - root.base : 1
-    digit = ((digit - 1 + delta) % root.count + root.count) % root.count + 1
+    // Stops at the ends, like the SUPER + scroll keys: no wrap to slot 0.
+    digit += delta
+    if (digit < 1 || digit > root.count) return
     root.focusWorkspace(root.base + digit)
   }
 

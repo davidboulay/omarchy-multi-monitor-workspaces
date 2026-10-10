@@ -6,9 +6,9 @@ Stock Hyprland has one global set of numbered workspaces. The first time you pre
 
 - `SUPER` + a number key goes to that workspace **on the monitor you're on**.
 - `SUPER+SHIFT` + a number key moves the focused window there, and `SUPER+SHIFT+ALT` + a number key moves it without following.
-- `SUPER` + scroll wheel, `SUPER+TAB` and `SUPER+SHIFT+TAB` cycle through the current monitor's workspaces only, and `SUPER+CTRL+TAB` goes back to that monitor's previous one.
+- `SUPER` + scroll wheel, `SUPER+TAB` and `SUPER+SHIFT+TAB` step through the current monitor's workspaces only (stopping at the first and last, with no wrap-around), and `SUPER+CTRL+TAB` goes back to that monitor's previous one.
 - `SUPER+SHIFT+ALT` + arrow sends every window on this workspace to the monitor in that direction. Workspaces themselves stay on their own screen.
-- Each screen's bar shows **only that screen's** workspaces, numbered 1–9/0, and marks the one that screen is showing. Left-click focuses a workspace, right-click sends the focused window there, and scrolling cycles.
+- Each screen's bar shows **only that screen's** workspaces, numbered 1–9/0, and marks the one that screen is showing. Left-click focuses a workspace, right-click sends the focused window there, and scrolling steps through them (no wrap-around).
 - **Unplug a screen (or undock) and its workspaces move onto the screen you still have, keeping their numbers where they're free**, so `SUPER+1` on the laptop reaches what was on the big screen's 1. Plug it back in (on any port) and they go home, windows and all.
 - If [hyprtasking](https://github.com/raybbian/hyprtasking) is installed, its overview grid shows each monitor its own workspaces.
 

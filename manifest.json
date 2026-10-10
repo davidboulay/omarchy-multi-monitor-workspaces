@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.davidboulay.multi-monitor-workspaces",
   "name": "Multi-Monitor Workspaces",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "David Boulay",
   "description": "Multi-monitor: each monitor gets its own isolated set of workspaces 1-9",
   "homepage": "https://github.com/davidboulay/omarchy-multi-monitor-workspaces",

@@ -145,6 +145,11 @@ BarWidget {
   Process {
     id: settingsWriter
     command: ["sh", "-c", "mkdir -p \"$1\" && printf '%s' \"$2\" > \"$1/settings\"", "sh", root.stateDir, root.settingsText]
+    // A settings change that arrives mid-write is skipped by syncSettings, and
+    // at shell start the real settings land right after the first write of the
+    // defaults. Re-read once the write is done (onLoaded syncs again), so the
+    // newer value wins without comparing against a stale file text.
+    onExited: settingsFile.reload()
   }
 
   function syncSettings() {

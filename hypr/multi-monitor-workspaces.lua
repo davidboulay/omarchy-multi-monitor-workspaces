@@ -39,7 +39,7 @@
 -- Workspaces.qml reads the same blocks and adopted files; change both
 -- together.
 
-local VERSION = "1.2.4"
+local VERSION = "1.3.0"
 local PLUGIN_ID = "io.github.davidboulay.multi-monitor-workspaces"
 local HOME = os.getenv("HOME") or ""
 local SHELL_CONFIG = HOME .. "/.config/omarchy/shell.json"

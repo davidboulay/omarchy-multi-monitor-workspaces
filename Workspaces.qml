@@ -201,6 +201,8 @@ BarWidget {
   function label(id) {
     if (root.isOwn(id)) {
       var digit = id - root.base
+      if (root.setting("chineseNumbers", false))
+        return ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"][digit]
       return digit === root.span ? "0" : String(digit)
     }
     return root.parkedGlyph

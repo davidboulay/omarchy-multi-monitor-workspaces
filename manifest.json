@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.davidboulay.multi-monitor-workspaces",
   "name": "Multi-Monitor Workspaces",
-  "version": "1.2.4",
+  "version": "1.3.0",
   "author": "David Boulay",
   "description": "Multi-monitor: each monitor gets its own isolated set of workspaces 1-9",
   "homepage": "https://github.com/davidboulay/omarchy-multi-monitor-workspaces",
@@ -23,7 +23,8 @@
     "defaultSection": "left",
     "defaults": {
       "count": 10,
-      "extraKeys": true
+      "extraKeys": true,
+      "chineseNumbers": false
     },
     "schema": [
       {
@@ -42,6 +43,13 @@
         "label": "Per-screen navigation keys",
         "defaultValue": true,
         "description": "Makes SUPER+TAB / SUPER+SHIFT+TAB cycle this screen's workspaces, SUPER+CTRL+TAB return to this screen's previous one, and SUPER+SHIFT+ALT+arrow send this workspace's windows to the screen in that direction. A key you bound yourself in ~/.config/hypr is always left alone."
+      },
+      {
+        "key": "chineseNumbers",
+        "type": "boolean",
+        "label": "Chinese workspace numbers",
+        "defaultValue": false,
+        "description": "Display workspace slots 1–10 as 一 through 十. Keyboard shortcuts stay the same."
       }
     ]
   },

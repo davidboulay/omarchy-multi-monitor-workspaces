@@ -29,6 +29,9 @@ omarchy bar set io.github.davidboulay.multi-monitor-workspaces count 5 --json
 | `count` | 10 | Workspaces per screen, 1–10 (10 is the `0` key). Number keys past this are unbound, so they can't jump to another screen, and workspaces adopted from an unplugged screen are placed within it whenever a slot is free. |
 | `extraKeys` | true | The per-screen `TAB` / `CTRL+TAB` / `SHIFT+ALT+arrow` keys above. The number keys and `SUPER` + scroll are always per-screen. |
 | `chineseNumbers` | false | Shows slots 1–10 in the bar as 一 through 十. Keys are unchanged. |
+| `showAll` | false | Always shows every slot up to `count`. Off shows 1–5 plus any other slot in use. |
+| `compact` | false | Packs the numbers tightly instead of a wide fixed slot each. |
+| `accentNumber` | false | Marks the active slot with its number in the theme's accent color instead of a filled square. |
 
 A change applies within a couple of seconds, with no reload needed on your part.
 

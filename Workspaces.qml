@@ -35,6 +35,9 @@ BarWidget {
   readonly property int span: 10
   readonly property int count: Math.max(1, Math.min(root.span, Number(root.setting("count", 10)) || 10))
   readonly property bool extraKeys: root.setting("extraKeys", true) !== false
+  readonly property bool showAll: root.setting("showAll", false) === true
+  readonly property bool compact: root.setting("compact", false) === true
+  readonly property bool accentNumber: root.setting("accentNumber", false) === true
   readonly property string stateDir: Quickshell.env("HOME") + "/.local/state/omarchy/multi-monitor-workspaces"
   readonly property string parkedGlyph: "󰍹"
 
@@ -179,7 +182,7 @@ BarWidget {
 
   function workspaceIds() {
     var ids = []
-    for (var n = 1; n <= Math.min(5, root.count); n++) ids.push(root.base + n)
+    for (var n = 1; n <= (root.showAll ? root.count : Math.min(5, root.count)); n++) ids.push(root.base + n)
 
     var parked = []
     var values = Hyprland.workspaces.values
@@ -253,7 +256,7 @@ BarWidget {
     anchors.fill: parent
     anchors.rightMargin: root.trailingGap
     columns: root.vertical ? 1 : root.workspaceIds().length
-    columnSpacing: root.vertical ? 0 : Style.space(1)
+    columnSpacing: root.vertical || root.compact ? 0 : Style.space(1)
     rowSpacing: root.vertical ? Style.space(2) : 0
 
     Repeater {
@@ -270,13 +273,15 @@ BarWidget {
         readonly property bool parked: !root.isOwn(modelData)
 
         bar: root.bar
-        text: focused && !parked ? "󱓻" : root.label(modelData)
+        text: focused && !parked && !root.accentNumber ? "󱓻" : root.label(modelData)
         tooltipText: root.tooltip(modelData)
-        foreground: parked ? (root.bar ? root.bar.urgent : Color.urgent) : (root.bar ? root.bar.barForeground : Color.foreground)
+        foreground: parked ? (root.bar ? root.bar.urgent : Color.urgent)
+          : focused && root.accentNumber ? Color.accent
+          : (root.bar ? root.bar.barForeground : Color.foreground)
         opacity: occupied || focused ? 1 : 0.5
-        horizontalMargin: 6
+        horizontalMargin: root.compact ? 3 : 6
         verticalPadding: 6
-        fixedWidth: root.vertical ? root.barSize : Style.space(20)
+        fixedWidth: root.vertical ? root.barSize : (root.compact ? -1 : Style.space(20))
         fixedHeight: root.barSize
         onPressed: function(button) {
           if (button === Qt.RightButton) root.sendWindow(modelData)
